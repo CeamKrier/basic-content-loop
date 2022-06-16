@@ -1,0 +1,17 @@
+{
+    "name": "basic-content-loop",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CeamKrier/basic-content-loop.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/CeamKrier/basic-content-loop/issues"
+    },
+    "homepage": "https://github.com/CeamKrier/basic-content-loop#readme"
+}

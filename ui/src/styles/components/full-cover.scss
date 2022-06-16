@@ -1,0 +1,29 @@
+@mixin maxHeight {
+    z-index: -1;
+    height: 100vh;
+}
+
+.full-cover-image {
+    @include maxHeight();
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.full-cover-video {
+    @include maxHeight();
+
+    background: none;
+
+    video {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+    }
+}

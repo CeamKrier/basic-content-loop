@@ -1,18 +1,12 @@
 import React from "react";
+import FullCover from "../components/FullCover";
 
-import "../styles/pages/main.css";
+import "../styles/pages/main.scss";
 
 function App() {
     return (
         <div className='App'>
-            <header className='App-header'>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-                    Learn React
-                </a>
-            </header>
+            <FullCover contentType='image' contentURL='https://images.rawpixel.com/image_1000/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHg4NDMxMzUtaW1hZ2Uta3d2eGdwdjEuanBn.jpg' />
         </div>
     );
 }

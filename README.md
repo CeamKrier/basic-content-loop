@@ -4,4 +4,8 @@ This is a basic web application where defined video + image contents displayed i
 
 ## Running
 
-Info will be provided
+You can start both api and ui with a single command:
+
+`npm run startAll`
+
+This will install the necessary dependencies of both UI and API then start them both.

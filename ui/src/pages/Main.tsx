@@ -1,7 +1,8 @@
 import React from "react";
-import FullCover from "../components/FullCover";
 
-import "../styles/pages/main.scss";
+import FullCover from "components/FullCover";
+
+import "styles/pages/main.scss";
 
 function App() {
     return (

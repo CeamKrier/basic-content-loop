@@ -2,7 +2,7 @@ import React from "react";
 
 import { IFullCover } from "./FullCover.interface";
 
-import "../../styles/components/full-cover.scss";
+import "styles/components/full-cover.scss";
 
 const FullCover = ({ contentURL, contentType }: IFullCover) => {
     if (contentType === "video") {

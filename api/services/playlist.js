@@ -2,15 +2,15 @@ import { mediaTypes } from "../utils/constants";
 
 const MOCK_PLAYLIST = [
     {
-        name: "An image",
+        name: "A piano image",
         type: mediaTypes.image,
         url: "https://images.rawpixel.com/image_1000/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHg4NDMxMzUtaW1hZ2Uta3d2eGdwdjEuanBn.jpg",
         duration: 3
     },
     {
-        name: "A video",
+        name: "A piano video",
         type: mediaTypes.video,
-        url: "https://file-examples.com/storage/fee30f8f8a62ab4b89f1e8c/2017/04/file_example_MP4_1920_18MG.mp4",
+        url: "https://cdn.videvo.net/videvo_files/video/free/2014-01/large_watermarked/Piano_Keys_Track_Along_1_preview.mp4",
         duration: 5
     }
 ];

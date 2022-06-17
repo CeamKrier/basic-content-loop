@@ -1,4 +1,4 @@
 export interface IFullCover {
-    contentURL: string;
-    contentType: "video" | "image";
+    contentURL?: string;
+    contentType?: "video" | "image";
 }

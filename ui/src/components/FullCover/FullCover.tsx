@@ -5,6 +5,10 @@ import { IFullCover } from "./FullCover.interface";
 import "styles/components/full-cover.scss";
 
 const FullCover = ({ contentURL, contentType }: IFullCover) => {
+    if (!contentURL || !contentType) {
+        return <></>;
+    }
+
     if (contentType === "video") {
         return (
             <div className='full-cover-video'>

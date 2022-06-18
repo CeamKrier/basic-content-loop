@@ -1,5 +1,4 @@
 .full-cover-image {
-  z-index: -1;
   height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
@@ -7,9 +6,7 @@
 }
 
 .full-cover-video {
-  z-index: -1;
   height: 100vh;
-  background: none;
 }
 .full-cover-video video {
   position: fixed;
@@ -20,4 +17,5 @@
   min-height: 100%;
   width: auto;
   height: auto;
+  z-index: -1;
 }/*# sourceMappingURL=full-cover.css.map */

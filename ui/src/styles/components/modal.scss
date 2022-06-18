@@ -1,10 +1,11 @@
 .modal-wrapper {
     width: 20vw;
-    height: 40vh;
-    background-color: lightgray;
+    height: auto;
+    background-color: rgba(76, 69, 69, 0.7);
     position: absolute;
     top: 0;
     right: 0;
     margin: 1em;
     border-radius: 1em;
+    padding: 1em;
 }

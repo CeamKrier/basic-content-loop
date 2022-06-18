@@ -1,1 +1,3 @@
-export interface IModal {}
+export interface IModal {
+    children?: JSX.Element | JSX.Element[];
+}

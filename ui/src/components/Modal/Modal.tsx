@@ -3,12 +3,8 @@ import { IModal } from "./Modal.interface";
 
 import "styles/components/modal.scss";
 
-const Modal = ({}: IModal) => {
-    return (
-        <div className='modal-wrapper'>
-            <div></div>
-        </div>
-    );
+const Modal = ({ children }: IModal) => {
+    return <div className='modal-wrapper'>{children}</div>;
 };
 
 export default Modal;

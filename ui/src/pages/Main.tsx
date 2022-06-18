@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Input, InputNumber, InputRef, Select } from "antd";
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, Input, InputNumber, Select } from "antd";
 
 import Modal from "components/Modal";
 import Showcase from "components/Showcase";
@@ -12,8 +12,6 @@ import "styles/pages/main.scss";
 const Option = Select.Option;
 
 function App() {
-    const inputUrlRef = useRef<InputRef>(null);
-
     const [playlist, setPlaylist] = useState<Array<IPlaylist>>();
     const [contentName, setContentName] = useState<string>();
     const [contentUrl, setContentUrl] = useState<string>();
@@ -64,22 +62,22 @@ function App() {
             <Modal>
                 <div className='modal-row'>
                     <span className='title'>Content Name</span>
-                    <Input placeholder='Enter content name' onChange={onContentNameChange} />
+                    <Input placeholder='Enter name' onChange={onContentNameChange} />
                 </div>
                 <div className='modal-row'>
                     <span className='title'>Content Address</span>
-                    <Input placeholder='Enter asset URL' onChange={onContentUrlChange} />
+                    <Input placeholder='Enter URL' onChange={onContentUrlChange} />
                 </div>
                 <div className='modal-row'>
                     <span className='title'>Content Type</span>
-                    <Select placeholder='Select content type' optionFilterProp='children' onChange={onContentTypeChange}>
+                    <Select placeholder='Select type' optionFilterProp='children' onChange={onContentTypeChange}>
                         <Option value='video'>Video</Option>
                         <Option value='image'>Image</Option>
                     </Select>
                 </div>
                 <div className='modal-row'>
                     <span className='title'>Display Duration</span>
-                    <InputNumber placeholder='Enter display duration (seconds)' min={1} onChange={setContentDisplayDuration} />
+                    <InputNumber placeholder='Enter duration (seconds)' min={1} onChange={setContentDisplayDuration} />
                 </div>
                 <div className='modal-row'>
                     <Button type='primary' onClick={onSubmit}>

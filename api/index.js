@@ -11,9 +11,9 @@ const port = 1955;
 server
     .disable("x-powered-by")
     .use(cors())
-    .use(compression()) // check
-    .use(bodyParser.json()) // check
-    .use(bodyParser.urlencoded({ extended: true })) // check
+    .use(compression())
+    .use(bodyParser.json())
+    .use(bodyParser.urlencoded({ extended: true }))
     .use("/api", ApiRoute);
 
 server.listen(port, () => {

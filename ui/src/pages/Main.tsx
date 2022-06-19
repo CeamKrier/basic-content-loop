@@ -5,6 +5,7 @@ import { AxiosResponse } from "axios";
 import Modal from "components/Modal";
 import Showcase from "components/Showcase";
 import Notification from "components/Notification";
+import Spinner from "components/Spinner";
 
 import { IPlaylist } from "services/api.interface";
 import apiClient from "services/api";
@@ -76,7 +77,7 @@ function App() {
     };
 
     if (!playlist) {
-        return <div>Loading...</div>;
+        return <Spinner />;
     }
 
     return (

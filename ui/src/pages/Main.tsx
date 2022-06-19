@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button, Input, InputNumber, Select } from "antd";
+import { AxiosResponse } from "axios";
 
 import Modal from "components/Modal";
 import Showcase from "components/Showcase";
+import Notification from "components/Notification";
 
 import { IPlaylist } from "services/api.interface";
 import apiClient from "services/api";
@@ -17,6 +19,8 @@ function App() {
     const [contentUrl, setContentUrl] = useState<string>();
     const [contentDisplayDuration, setContentDisplayDuration] = useState<number>();
     const [contentType, setContentType] = useState<string>();
+    const [operationResponse, setOperationResponse] = useState<AxiosResponse<any, any>>();
+    const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 
     const getPlaylist = useCallback(async () => {
         const response = await apiClient.get("/playlist");
@@ -28,6 +32,21 @@ function App() {
     useEffect(() => {
         getPlaylist();
     }, []);
+
+    useEffect(() => {
+        if (contentName && contentUrl && contentDisplayDuration && contentType) {
+            setSubmitDisabled(false);
+        } else {
+            setSubmitDisabled(true);
+        }
+    }, [contentName, contentUrl, contentDisplayDuration, contentType]);
+
+    useEffect(() => {
+        // clear operation response
+        setTimeout(() => {
+            setOperationResponse(undefined);
+        }, 4000);
+    }, [operationResponse]);
 
     const onContentNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setContentName(event.target.value);
@@ -44,11 +63,15 @@ function App() {
     const onSubmit = async () => {
         const payload = { name: contentName, url: contentUrl, duration: contentDisplayDuration, type: contentType };
 
-        const response = await apiClient.post("/add", payload);
+        try {
+            const response = await apiClient.post("/add", payload);
 
-        console.log("operation", response);
-        if (response.status === 200) {
-            setPlaylist(response.data);
+            if (response.status === 200) {
+                setPlaylist(response.data);
+                setOperationResponse(response);
+            }
+        } catch (error: any) {
+            setOperationResponse(error?.response as AxiosResponse);
         }
     };
 
@@ -60,6 +83,7 @@ function App() {
         <div>
             <Showcase playlist={playlist} />
             <Modal>
+                <h3 className='modal-title'>Add Content</h3>
                 <div className='modal-row'>
                     <span className='title'>Content Name</span>
                     <Input placeholder='Enter name' onChange={onContentNameChange} />
@@ -80,11 +104,12 @@ function App() {
                     <InputNumber placeholder='Enter duration (seconds)' min={1} onChange={setContentDisplayDuration} />
                 </div>
                 <div className='modal-row'>
-                    <Button type='primary' onClick={onSubmit}>
+                    <Button type='primary' onClick={onSubmit} disabled={isSubmitDisabled}>
                         Submit
                     </Button>
                 </div>
             </Modal>
+            <Notification status={operationResponse?.status} message={operationResponse?.data} />
         </div>
     );
 }

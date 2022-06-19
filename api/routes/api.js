@@ -11,6 +11,11 @@ router.get("/playlist", (_, response) => {
 });
 
 router.post("/add", verifyPayload, async (request, response) => {
+    const playlist = getList();
+    if (playlist.some(content => content.url === request.body?.url)) {
+        return response.status(406).send("Given URL already included to playlist.");
+    }
+
     const updatedPlaylist = addList(request.body);
     response.send(updatedPlaylist);
 });

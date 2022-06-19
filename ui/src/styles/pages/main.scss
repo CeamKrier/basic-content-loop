@@ -1,11 +1,17 @@
 .modal-row {
     margin: 16px 0;
+
     .title {
         color: beige;
         margin-bottom: 6px;
     }
+
     > div,
     button {
         width: 100% !important;
     }
+}
+
+.modal-title {
+    color: white;
 }

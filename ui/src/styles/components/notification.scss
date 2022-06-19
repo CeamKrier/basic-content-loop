@@ -1,0 +1,41 @@
+.notification {
+    width: 20em;
+    height: 5em;
+    position: absolute;
+    margin: 1em;
+    bottom: 0;
+    right: 0;
+
+    background-color: rgba(76, 69, 69, 0.7);
+    border-radius: 1em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    transition: all 0.3s ease-in;
+
+    .icon {
+        font-size: 20px;
+        margin-right: 6px;
+    }
+
+    .icon-success {
+        color: lime;
+    }
+
+    .icon-error {
+        color: #ff0000;
+    }
+
+    @media only screen and (max-width: 500px) {
+        bottom: unset;
+        top: 0;
+        right: 0;
+    }
+}
+
+.notification-hidden {
+    right: -16em;
+}

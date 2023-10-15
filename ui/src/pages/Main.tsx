@@ -25,7 +25,13 @@ const MOCK_PLAYLIST: IPlaylist[] = [
         name: "A piano video",
         type: "video",
         url: "https://v3.cdnpk.net/videvo_files/video/free/video0475/large_watermarked/_import_61ff563b7ac975.89975859_preview.mp4",
-        duration: 5
+        duration: 8
+    },
+    {
+        name: "A piano video",
+        type: "video",
+        url: "https://v3.cdnpk.net/videvo_files/video/free/2014-01/large_watermarked/Musical_Notation_Background_LoopVidevo_preview.mp4",
+        duration: 8
     }
 ];
 
@@ -72,7 +78,7 @@ function App() {
         setFormValues({ type: "contentType", value });
     };
 
-    const onDisplayDurationChange = (value: number) => {
+    const onDisplayDurationChange = (value: number | null) => {
         setFormValues({ type: "contentDisplayDuration", value });
     };
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState, useReducer } from "react";
 import { Button, Input, InputNumber, Select } from "antd";
 import { AxiosResponse } from "axios";
 
@@ -14,33 +14,44 @@ import "styles/pages/main.scss";
 
 const Option = Select.Option;
 
+const MOCK_PLAYLIST: IPlaylist[] = [
+    {
+        name: "A piano image",
+        type: "image",
+        url: "https://images.rawpixel.com/image_1000/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHg4NDMxMzUtaW1hZ2Uta3d2eGdwdjEuanBn.jpg",
+        duration: 3
+    },
+    {
+        name: "A piano video",
+        type: "video",
+        url: "https://v3.cdnpk.net/videvo_files/video/free/video0475/large_watermarked/_import_61ff563b7ac975.89975859_preview.mp4",
+        duration: 5
+    }
+];
+
 function App() {
-    const [playlist, setPlaylist] = useState<Array<IPlaylist>>();
-    const [contentName, setContentName] = useState<string>();
-    const [contentUrl, setContentUrl] = useState<string>();
-    const [contentDisplayDuration, setContentDisplayDuration] = useState<number>();
-    const [contentType, setContentType] = useState<string>();
+    const [playlist, setPlaylist] = useState<Array<IPlaylist>>(MOCK_PLAYLIST);
+
+    const [formValues, setFormValues] = useReducer((state: any, action: any) => {
+        switch (action.type) {
+            case "contentName":
+                return { ...state, contentName: action.value };
+            case "contentUrl":
+                return { ...state, contentUrl: action.value };
+            case "contentDisplayDuration":
+                return { ...state, contentDisplayDuration: action.value };
+            case "contentType":
+                return { ...state, contentType: action.value };
+            default:
+                return state;
+        }
+    }, {});
+
     const [operationResponse, setOperationResponse] = useState<AxiosResponse<any, any>>();
-    const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 
-    const getPlaylist = useCallback(async () => {
-        const response = await apiClient.get("/playlist");
-        if (response.status === 200) {
-            setPlaylist(response.data);
-        }
-    }, []);
-
-    useEffect(() => {
-        getPlaylist();
-    }, []);
-
-    useEffect(() => {
-        if (contentName && contentUrl && contentDisplayDuration && contentType) {
-            setSubmitDisabled(false);
-        } else {
-            setSubmitDisabled(true);
-        }
-    }, [contentName, contentUrl, contentDisplayDuration, contentType]);
+    const isSubmitDisabled = useMemo(() => {
+        return !formValues.contentName || !formValues.contentUrl || !formValues.contentDisplayDuration || !formValues.contentType;
+    }, [formValues]);
 
     useEffect(() => {
         // clear operation response
@@ -50,27 +61,39 @@ function App() {
     }, [operationResponse]);
 
     const onContentNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setContentName(event.target.value);
+        setFormValues({ type: "contentName", value: event.target.value });
     };
 
     const onContentUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setContentUrl(event.target.value);
+        setFormValues({ type: "contentUrl", value: event.target.value });
     };
 
     const onContentTypeChange = (value: string) => {
-        setContentType(value);
+        setFormValues({ type: "contentType", value });
+    };
+
+    const onDisplayDurationChange = (value: number) => {
+        setFormValues({ type: "contentDisplayDuration", value });
     };
 
     const onSubmit = async () => {
-        const payload = { name: contentName, url: contentUrl, duration: contentDisplayDuration, type: contentType };
+        const payload = { name: formValues.contentName, url: formValues.contentUrl, duration: formValues.contentDisplayDuration, type: formValues.contentType };
 
         try {
-            const response = await apiClient.post("/add", payload);
+            // const response = await apiClient.post("/add", payload);
 
-            if (response.status === 200) {
-                setPlaylist(response.data);
-                setOperationResponse(response);
+            // if (response.status === 200) {
+            //     setPlaylist(response.data);
+            //     setOperationResponse(response);
+            // }
+
+            if (playlist.some(ct => ct.url === payload.url)) {
+                setOperationResponse({ status: 400, data: "This content already exist on playlist" } as any);
+                return;
             }
+
+            setPlaylist([...playlist, payload]);
+            setOperationResponse({ status: 200, data: "Content added successfully" } as any);
         } catch (error: any) {
             setOperationResponse(error?.response as AxiosResponse);
         }
@@ -102,7 +125,7 @@ function App() {
                 </div>
                 <div className='modal-row'>
                     <span className='title'>Display Duration</span>
-                    <InputNumber placeholder='Enter duration (seconds)' min={1} onChange={setContentDisplayDuration} />
+                    <InputNumber placeholder='Enter duration (seconds)' min={1} onChange={onDisplayDurationChange} />
                 </div>
                 <div className='modal-row'>
                     <Button type='primary' onClick={onSubmit} disabled={isSubmitDisabled}>

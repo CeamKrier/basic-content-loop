@@ -21,7 +21,9 @@ const Showcase = ({ playlist }: IShowcase) => {
     return (
         <>
             {playlist.map((ct, index) => (
-                <FullCover key={ct.url} contentType={ct?.type} contentURL={ct?.url} visible={index === contentIndex} />
+                <>
+                    <FullCover key={ct.url} contentType={ct?.type} contentURL={ct?.url} visible={index === contentIndex} />
+                </>
             ))}
         </>
     );
